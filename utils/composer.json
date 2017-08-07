@@ -1,0 +1,7 @@
+{
+  "name" : "utils",
+  "repositories" : [ {
+    "type" : "composer",
+    "url" : "https://packagist.org/"
+  } ]
+}

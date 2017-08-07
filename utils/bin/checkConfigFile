@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+<?php
+include_once '../ConfigFileMonitorHashBased.php';
+
+if (isset($argv[1]) && isset($argv[2])){
+    $HASH_FILE = $argv[1];
+    $CONFIG_FILE = $argv[2];
+}else {
+    die("Usage: checkConfigFile HASH_FILE CONFIG_FILE\n");
+}
+
+$oMonitoringFile = new ConfigFileMonitorHashBased($HASH_FILE, $CONFIG_FILE);
+
+if (!$oMonitoringFile->existsHashFile()) {
+    $oMonitoringFile->createHashFile();
+    $oMonitoringFile->writeHashOnHashFile();
+    echo "Result: File created\n";
+} else if ($oMonitoringFile->isConfigFileModified()) {
+    echo "Result: File modified\n";
+} else {
+    echo "Result: File not modified\n";
+}
