@@ -6,7 +6,7 @@ if (isset($argv[1]) && isset($argv[2])){
     $HASH_FILE = $argv[1];
     $CONFIG_FILE = $argv[2];
 }else {
-    die("Usage: checkConfigFile HASH_FILE CONFIG_FILE\n");
+    die("Usage: checkConfigFile HASH_FILE CONFIG_FILE [ACTION_EXECUTABLE]\n");
 }
 
 $oMonitoringFile = new ConfigFileMonitorHashBased($HASH_FILE, $CONFIG_FILE);
@@ -17,6 +17,10 @@ if (!$oMonitoringFile->existsHashFile()) {
     echo "Result: File created\n";
 } else if ($oMonitoringFile->isConfigFileModified()) {
     echo "Result: File modified\n";
+    if (isset($argv[3]) && file_exists($argv[3])){
+    	echo "Executing " . $argv[3] . "\n";
+    	exec($argv[3]);
+    }
 } else {
     echo "Result: File not modified\n";
 }
