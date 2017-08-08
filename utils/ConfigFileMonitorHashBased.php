@@ -30,6 +30,9 @@ class ConfigFileMonitorHashBased {
     }
 
     public function writeHashOnHashFile() {
+        if (file_exists($this->sHashFile)){
+            unlink($this->sHashFile);
+        }
         $rPointer = fopen($this->sHashFile, "w+");
         fwrite($rPointer, md5_file($this->sConfigFile));
         fclose($rPointer);

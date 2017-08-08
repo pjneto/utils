@@ -20,6 +20,7 @@ if (!$oMonitoringFile->existsHashFile()) {
     if (isset($argv[3]) && file_exists($argv[3])){
     	echo "Executing " . $argv[3] . "\n";
     	exec($argv[3]);
+    	$oMonitoringFile->writeHashOnHashFile();
     }
 } else {
     echo "Result: File not modified\n";
